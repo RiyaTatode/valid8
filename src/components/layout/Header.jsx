@@ -50,7 +50,7 @@ const Header = () => {
             ))}
           </nav>
           <div className="hidden md:flex items-center gap-4">
-            <Button as={Link} to="/login" variant="secondary">
+            <Button as={Link} to="/signin" variant="secondary">
               Sign In
             </Button>
             <Button as={Link} to="/login" variant="primary">

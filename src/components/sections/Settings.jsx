@@ -1,34 +1,16 @@
 // src/components/Settings.jsx
 import React, { useState } from 'react';
-import Sidebar from '../layout/Sidebar';
+import Sidebar from '../layout/Sidebar'; // Assuming Sidebar path
 
 const Settings = () => {
   const [activeTab, setActiveTab] = useState('general');
 
   const settingsTabs = [
-    { id: 'general', title: 'General', icon: (
-      <svg className="w-8 h-8 text-indigo-600 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.82 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.82 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.82-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.82-3.31 2.37-2.37.525.322 1.393.181 2.115-.466.722-.647 1.155-1.554 1.155-2.548z" />
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-      </svg>
-    )},
-    { id: 'security', title: 'Security', icon: (
-      <svg className="w-8 h-8 text-indigo-600 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 7h2v2h-2V7z" />
-      </svg>
-    )},
-    { id: 'notifications', title: 'Notifications', icon: (
-      <svg className="w-8 h-8 text-indigo-600 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0a2 2 0 100 4 2 2 0 000-4z" />
-      </svg>
-    )},
-    { id: 'billing', title: 'Billing', icon: (
-      <svg className="w-8 h-8 text-indigo-600 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 9v6a2 2 0 01-2 2H9a2 2 0 01-2-2V9m10 0a2 2 0 00-2-2H9a2 2 0 00-2 2m10 0h2a2 2 0 012 2v6a2 2 0 01-2 2h-2m-8-2h4m-4 0h-2a2 2 0 01-2-2v-6a2 2 0 012-2h2m-8 2h4m-4 0h-2a2 2 0 01-2-2v-6a2 2 0 012-2h2" />
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-      </svg>
-    )},
+    { id: 'general', title: 'General' },
+    { id: 'security', title: 'Security' },
+    { id: 'notifications', title: 'Notifications' },
+    { id: 'billing', title: 'Billing' },
+    { id: 'integrations', title: 'Integrations' }, // Added a new tab for example
   ];
 
   const renderTabContent = () => {
@@ -127,6 +109,28 @@ const Settings = () => {
             </div>
           </div>
         );
+        case 'integrations':
+          return (
+            <div className="space-y-6">
+              <h2 className="text-xl font-semibold text-gray-800">Integrations</h2>
+              <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <h3 className="text-lg font-medium text-gray-700 mb-4">Connect Third-Party Services</h3>
+                <p className="text-gray-500 mb-4">Integrate with your favorite tools to streamline workflows.</p>
+                <div className="flex items-center justify-between py-3 border-b border-gray-200 last:border-b-0">
+                  <span className="font-medium text-gray-700">Learning Management System (LMS)</span>
+                  <button className="bg-indigo-500 text-white px-3 py-1 rounded-md text-sm hover:bg-indigo-600 transition-colors">Connect</button>
+                </div>
+                <div className="flex items-center justify-between py-3 border-b border-gray-200 last:border-b-0">
+                  <span className="font-medium text-gray-700">Student Information System (SIS)</span>
+                  <button className="bg-indigo-500 text-white px-3 py-1 rounded-md text-sm hover:bg-indigo-600 transition-colors">Connect</button>
+                </div>
+                <div className="flex items-center justify-between py-3 border-b border-gray-200 last:border-b-0">
+                  <span className="font-medium text-gray-700">HR Software</span>
+                  <button className="bg-gray-100 text-gray-700 px-3 py-1 rounded-md text-sm hover:bg-gray-200 transition-colors">Configure</button>
+                </div>
+              </div>
+            </div>
+          );
       default:
         return null;
     }
@@ -142,20 +146,22 @@ const Settings = () => {
         </header>
         
         <div className="max-w-6xl mx-auto">
-          {/* Top-level Horizontal Cards for Navigation */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          {/* Top-level Horizontal Tabbed Navigation */}
+          <div className="flex flex-nowrap overflow-x-auto gap-2 p-1 bg-gray-200 rounded-lg mb-8 shadow-inner">
             {settingsTabs.map(tab => (
-              <div 
+              <button 
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 className={`
-                  flex flex-col items-center p-6 bg-white rounded-xl shadow-sm border border-gray-100 cursor-pointer transition-all duration-300
-                  ${activeTab === tab.id ? 'ring-2 ring-indigo-500 shadow-lg' : 'hover:shadow-lg'}
+                  flex-shrink-0 px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 whitespace-nowrap
+                  ${activeTab === tab.id 
+                    ? 'bg-indigo-600 text-white shadow' 
+                    : 'text-gray-700 hover:bg-gray-300'
+                  }
                 `}
               >
-                {tab.icon}
-                <span className={`text-lg font-medium ${activeTab === tab.id ? 'text-indigo-700' : 'text-gray-700'}`}>{tab.title}</span>
-              </div>
+                {tab.title}
+              </button>
             ))}
           </div>
           

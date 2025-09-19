@@ -1,7 +1,8 @@
 // src/components/Dashboard.jsx
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from '../layout/Sidebar';
+import { Menu } from 'lucide-react';
 
 const topLevelCardsData = [
   { title: 'Certificates Issued', value: '1,245', trend: '+12% this month' },
@@ -19,6 +20,7 @@ const recentCertificatesData = [
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const handleViewAllCertificates = () => {
     navigate('/admin/history');
@@ -26,10 +28,18 @@ const Dashboard = () => {
 
   return (
     <div className="flex bg-gray-50 min-h-screen">
-      <Sidebar />
+      <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
       <main className="flex-1 p-6 md:p-10 transition-all duration-300">
-        <header className="mb-6 md:mb-10 border-b border-gray-200 pb-4">
+        <header className="flex items-center justify-between mb-6 md:mb-10 border-b border-gray-200 pb-4">
           <h1 className="text-3xl md:text-4xl font-bold text-gray-800">Dashboard Overview</h1>
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsSidebarOpen(true)}
+            className="md:hidden p-2 text-gray-500 hover:text-gray-700 transition-colors"
+            aria-label="Open navigation menu"
+          >
+            <Menu size={24} />
+          </button>
         </header>
 
         <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-8">
@@ -51,6 +61,7 @@ const Dashboard = () => {
             <button
               onClick={handleViewAllCertificates}
               className="text-indigo-600 hover:text-indigo-800 transition-colors duration-200 text-sm font-medium focus:outline-none"
+              aria-label="View all issued certificates"
             >
               View All
             </button>
