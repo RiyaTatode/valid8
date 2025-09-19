@@ -34,7 +34,7 @@ const HeroSection = () => {
               Our AI-powered platform ensures the authenticity of every certificate, fighting fraud and building a global foundation of trust.
             </motion.p>
             <motion.div variants={FADE_IN_VARIANTS} className="mt-10 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <Button as={Link} to="/login" variant="premium" size="lg">
+              <Button as={Link} to="/verify" variant="premium" size="lg">
                 Start Verifying Now
               </Button>
               <Button

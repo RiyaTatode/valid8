@@ -1,3 +1,5 @@
+// src/components/Header.jsx
+
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -20,13 +22,16 @@ const Header = () => {
     };
   }, [isMenuOpen]);
 
-  const handleHashLink = (e, to) => {
+  // A single function to handle all link clicks
+  const handleLinkClick = (e, to) => {
+    // If it's a hash link, handle the smooth scroll
     if (to.startsWith('/#')) {
       e.preventDefault();
       const id = to.substring(2);
       document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
     }
-    if (isMenuOpen) setIsMenuOpen(false);
+    // Always close the menu after a link is clicked
+    setIsMenuOpen(false);
   };
 
   return (
@@ -42,7 +47,7 @@ const Header = () => {
               <Link
                 key={link.text}
                 to={link.to}
-                onClick={(e) => handleHashLink(e, link.to)}
+                onClick={(e) => handleLinkClick(e, link.to)}
                 className="text-sm text-gray-600 hover:text-blue-600 transition-colors"
               >
                 {link.text}
@@ -53,7 +58,7 @@ const Header = () => {
             <Button as={Link} to="/signin" variant="secondary">
               Sign In
             </Button>
-            <Button as={Link} to="/login" variant="primary">
+            <Button as={Link} to="/signin" variant="primary">
               Get Started
             </Button>
           </div>
@@ -64,12 +69,12 @@ const Header = () => {
           </div>
         </div>
       </header>
-      <MobileMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+      <MobileMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} onLinkClick={handleLinkClick} />
     </>
   );
 };
 
-const MobileMenu = ({ isOpen, onClose }) => (
+const MobileMenu = ({ isOpen, onClose, onLinkClick }) => (
   <AnimatePresence>
     {isOpen && (
       <motion.div
@@ -95,10 +100,7 @@ const MobileMenu = ({ isOpen, onClose }) => (
               <Link
                 key={link.text}
                 to={link.to}
-                onClick={(e) => {
-                  handleHashLink(e, link.to);
-                  onClose();
-                }}
+                onClick={(e) => onLinkClick(e, link.to)}
                 className="text-2xl font-medium text-gray-800"
               >
                 {link.text}
@@ -106,10 +108,10 @@ const MobileMenu = ({ isOpen, onClose }) => (
             ))}
           </nav>
           <div className="mt-12 pt-8 border-t border-gray-200 flex flex-col gap-4">
-            <Button as={Link} to="/login" variant="secondary" size="lg" className="w-full">
+            <Button as={Link} to="/signin" variant="secondary" size="lg" className="w-full" onClick={onClose}>
               Sign In
             </Button>
-            <Button as={Link} to="/login" variant="primary" size="lg" className="w-full">
+            <Button as={Link} to="/signin" variant="primary" size="lg" className="w-full" onClick={onClose}>
               Get Started
             </Button>
           </div>
