@@ -1,5 +1,5 @@
 // src/components/Sidebar.jsx
-import React, { useState } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import {
   LayoutDashboard,
@@ -10,6 +10,7 @@ import {
   LogOut,
   X,
 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const navLinks = [
   { to: '/admin/dashboard', label: 'Dashboard', icon: <LayoutDashboard size={20} /> },
@@ -23,19 +24,26 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
   return (
     <>
       {/* Mobile Sidebar - Full-screen overlay */}
-      {isSidebarOpen && (
-        <div
-          className="fixed inset-0 z-50 bg-gray-900 bg-opacity-75 md:hidden"
-          onClick={() => setIsSidebarOpen(false)}
-        >
-          <div
-            className="w-64 bg-white h-full shadow-xl overflow-y-auto"
-            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
+      <AnimatePresence>
+        {isSidebarOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-black/50 backdrop-blur-lg md:hidden"
+            onClick={() => setIsSidebarOpen(false)}
           >
-            <div className="flex flex-col h-full">
+            <motion.div
+              initial={{ x: '100%' }}
+              animate={{ x: '0%' }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+              className="absolute top-0 right-0 h-full w-full max-w-xs bg-white p-6 shadow-xl overflow-y-auto"
+              onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
+            >
               {/* Header with Close Button */}
-              <div className="p-6 flex items-center justify-between border-b border-gray-200">
-                <span className="text-2xl font-bold text-indigo-600">Valid8</span>
+              <div className="flex items-center justify-between mb-6">
+                <span className="text-2xl font-bold text-blue-600">Valid8</span>
                 <button
                   onClick={() => setIsSidebarOpen(false)}
                   className="text-gray-500 hover:text-gray-700 transition-colors"
@@ -46,14 +54,16 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
               </div>
 
               {/* Mobile Nav Links */}
-              <ul className="flex-1 py-4 space-y-2 px-4">
+              <ul className="flex flex-col gap-4">
                 {navLinks.map((link) => (
                   <li key={link.to}>
                     <NavLink
                       to={link.to}
                       className={({ isActive }) =>
-                        `flex items-center py-3 px-4 rounded-lg text-gray-600 font-medium transition-colors hover:bg-gray-100 ${
-                          isActive ? 'bg-indigo-50 text-indigo-700' : ''
+                        `flex items-center py-3 px-4 rounded-lg font-medium transition-colors ${
+                          isActive
+                            ? 'bg-indigo-50 text-indigo-700'
+                            : 'text-gray-600 hover:bg-gray-100'
                         }`
                       }
                       onClick={() => setIsSidebarOpen(false)}
@@ -71,7 +81,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
               </ul>
 
               {/* Sign Out Button */}
-              <div className="p-4 border-t border-gray-200 flex-shrink-0">
+              <div className="mt-8 pt-4 border-t border-gray-200 flex-shrink-0">
                 <button
                   onClick={() => console.log('Signing out...')}
                   className="w-full py-2 flex items-center justify-start text-sm font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
@@ -80,15 +90,15 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                   <span>Sign Out</span>
                 </button>
               </div>
-            </div>
-          </div>
-        </div>
-      )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Desktop Sidebar - Sticky and part of the main layout flow */}
       <nav className="hidden md:flex flex-col flex-shrink-0 w-64 h-screen sticky top-0 bg-white shadow-xl">
         <div className="flex items-center justify-between h-20 px-6 border-b border-gray-200 flex-shrink-0">
-          <span className="text-2xl font-bold text-indigo-600">Valid8</span>
+          <span className="text-2xl font-bold text-blue-600">Valid8</span>
         </div>
         <div className="flex-1 py-4 overflow-y-auto overflow-x-hidden">
           <ul className="space-y-2 px-4">
@@ -97,8 +107,10 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                 <NavLink
                   to={link.to}
                   className={({ isActive }) =>
-                    `flex items-center py-3 px-4 rounded-lg text-gray-600 font-medium transition-colors hover:bg-gray-100 ${
-                      isActive ? 'bg-indigo-50 text-indigo-700' : ''
+                    `flex items-center py-3 px-4 rounded-lg font-medium transition-colors ${
+                      isActive
+                        ? 'bg-blue-100 text-blue-600'
+                        : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
                     }`
                   }
                 >

@@ -2,6 +2,9 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Sidebar from '../layout/Sidebar';
+import { Menu } from 'lucide-react';
+import { Eye } from 'lucide-react'; // lucide-react eye icon
+
 
 // Mock data for demonstration purposes
 const mockCertificates = [
@@ -78,6 +81,8 @@ const History = ({ certificates = mockCertificates }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCert, setSelectedCert] = useState(null);
   const [filteredCertificates, setFilteredCertificates] = useState([]);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
 
   useEffect(() => {
     let newFilteredCerts = certificates;
@@ -113,11 +118,18 @@ const History = ({ certificates = mockCertificates }) => {
 
   return (
     <div className="flex bg-gray-50 min-h-screen">
-      <Sidebar />
+      <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
       <main className="flex-1 p-6 md:p-10 transition-all duration-300">
-        <header className="mb-6 md:mb-10 border-b border-gray-200 pb-4">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-800">Certificate History</h1>
-          <p className="text-gray-600 mt-2">View all issued and pending certificates.</p>
+        <header className="flex items-center justify-between mb-6 md:mb-10 border-b border-gray-200 pb-4">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-800">History</h1>
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsSidebarOpen(true)}
+            className="md:hidden p-2 text-gray-500 hover:text-gray-700 transition-colors"
+            aria-label="Open navigation menu"
+          >
+            <Menu size={24} />
+          </button>
         </header>
 
         <div className="max-w-6xl mx-auto">
@@ -138,27 +150,44 @@ const History = ({ certificates = mockCertificates }) => {
 
           {/* Certificate List (Mobile View) */}
           <div className="lg:hidden space-y-4">
-            {filteredCertificates.length > 0 ? (
-              filteredCertificates.map((cert) => (
-                <div
-                  key={cert.certificateId}
-                  className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 cursor-pointer hover:shadow-lg transition-all"
-                  onClick={() => setSelectedCert(cert)}
-                >
-                  <p className="font-semibold text-gray-900">{cert.studentName}</p>
-                  <p className="text-sm text-gray-500 mb-2">{cert.course}</p>
-                  <div className="flex items-center justify-between text-xs font-medium">
-                    <span className="text-gray-400">{cert.certificateId}</span>
-                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusClasses(cert.status)}`}>
-                      {cert.status}
-                    </span>
-                  </div>
-                </div>
-              ))
-            ) : (
-              <p className="text-center text-gray-500 py-8">No certificates found.</p>
-            )}
+  {filteredCertificates.length > 0 ? (
+    filteredCertificates.map((cert) => (
+      <div
+        key={cert.certificateId}
+        className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 cursor-pointer hover:shadow-lg transition-all flex flex-col"
+      >
+        <div className="flex justify-between items-start">
+          <div>
+            <p className="font-semibold text-gray-900">{cert.studentName}</p>
+            <p className="text-sm text-gray-500 mb-2">{cert.course}</p>
           </div>
+
+          {/* Eye button */}
+          <button
+            onClick={() => setSelectedCert(cert)}
+            className="text-gray-400 hover:text-gray-600 transition-colors"
+            aria-label="View certificate details"
+          >
+            <Eye size={20} />
+          </button>
+        </div>
+
+        <div className="flex items-center justify-between text-xs font-medium mt-2">
+          <span className="text-gray-400">{cert.certificateId}</span>
+          <span
+            className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusClasses(
+              cert.status
+            )}`}
+          >
+            {cert.status}
+          </span>
+        </div>
+      </div>
+    ))
+  ) : (
+    <p className="text-center text-gray-500 py-8">No certificates found.</p>
+  )}
+</div>
 
           {/* Certificate Table (Desktop View) */}
           <div className="hidden lg:block overflow-x-auto bg-white rounded-xl shadow-sm border border-gray-100">
