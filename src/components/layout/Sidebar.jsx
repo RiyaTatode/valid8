@@ -1,6 +1,6 @@
 // src/components/Sidebar.jsx
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom'; // ✅ useNavigate import
 import {
   LayoutDashboard,
   History,
@@ -21,6 +21,17 @@ const navLinks = [
 ];
 
 const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
+  const navigate = useNavigate(); // ✅ navigate hook
+
+  const handleLogout = () => {
+    // 🔹 Yaha pe agar auth data store hai to clear kar do
+    localStorage.removeItem("authToken");
+    sessionStorage.clear();
+
+    // 🔹 Landing page "/" pe redirect
+    navigate("/");
+  };
+
   return (
     <>
       {/* Mobile Sidebar - Full-screen overlay */}
@@ -80,10 +91,10 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                 ))}
               </ul>
 
-              {/* Sign Out Button */}
+              {/* Mobile Sign Out Button */}
               <div className="mt-8 pt-4 border-t border-gray-200 flex-shrink-0">
                 <button
-                  onClick={() => console.log('Signing out...')}
+                  onClick={handleLogout}
                   className="w-full py-2 flex items-center justify-start text-sm font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
                 >
                   <LogOut size={20} className="mr-2" />
@@ -95,7 +106,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
         )}
       </AnimatePresence>
 
-      {/* Desktop Sidebar - Sticky and part of the main layout flow */}
+      {/* Desktop Sidebar */}
       <nav className="hidden md:flex flex-col flex-shrink-0 w-64 h-screen sticky top-0 bg-white shadow-xl">
         <div className="flex items-center justify-between h-20 px-6 border-b border-gray-200 flex-shrink-0">
           <span className="text-2xl font-bold text-blue-600">Valid8</span>
@@ -126,9 +137,11 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
             ))}
           </ul>
         </div>
+
+        {/* Desktop Sign Out */}
         <div className="p-4 border-t border-gray-200 flex-shrink-0">
           <button
-            onClick={() => console.log('Signing out...')}
+            onClick={handleLogout}
             className="w-full py-2 flex items-center justify-start text-sm font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
           >
             <LogOut size={20} className="mr-2" />

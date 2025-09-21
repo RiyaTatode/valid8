@@ -104,7 +104,7 @@ const Alerts = () => {
       <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
       <main className="flex-1 p-6 md:p-10 transition-all duration-300">
         <header className="flex items-center justify-between mb-6 md:mb-10 border-b border-gray-200 pb-4">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-800">Alert</h1>
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-800">Alerts</h1>
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsSidebarOpen(true)}

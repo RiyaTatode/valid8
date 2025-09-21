@@ -208,14 +208,8 @@ const IssueCertificates = () => {
               accept=".csv, .json, .xlsx"
             />
           </div>
-          <div className="flex justify-end space-x-4 pt-4 border-t border-gray-200 mt-6">
-            <button 
-              type="button"
-              onClick={handleBack}
-              className="bg-white border border-gray-300 text-gray-700 px-6 py-3 rounded-lg font-medium hover:bg-gray-50 transition-colors shadow-sm"
-            >
-              Back
-            </button>
+          <div className="flex justify-center space-x-4 pt-4 border-t border-gray-200 mt-6">
+            
             <button 
               type="button"
               onClick={handleBulkUploadSubmit}
@@ -246,7 +240,7 @@ const IssueCertificates = () => {
               <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
               </svg>
-              Back
+              
             </button>
           )}
           

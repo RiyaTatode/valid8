@@ -25,7 +25,6 @@ const Settings = () => {
     { id: 'notifications', title: 'Notifications' },
     { id: 'billing', title: 'Billing' },
     { id: 'integrations', title: 'Integrations' },
-    { id: 'appearance', title: 'Appearance' },
   ];
 
   const renderTabContent = () => {
@@ -34,7 +33,7 @@ const Settings = () => {
         return (
           <div className="space-y-6">
             <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200">General Settings</h2>
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
+            <div className="bg-white bg-white-800 p-6 rounded-xl border-white-100 border-white-700">
               <h3 className="text-lg font-medium text-gray-700 dark:text-gray-200 mb-4">University Profile</h3>
               <form className="space-y-4">
                 <div>
@@ -151,31 +150,7 @@ const Settings = () => {
           </div>
         );
 
-      case 'appearance':
-  return (
-    <div className="space-y-6">
-      <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200">Appearance</h2>
-
-      {/* Dark Mode Toggle */}
-      <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex items-center justify-between">
-        <span className="text-gray-700 dark:text-gray-200 font-medium">Dark Mode</span>
-        <label className="relative inline-flex items-center cursor-pointer">
-          <input
-            type="checkbox"
-            className="sr-only peer"
-            checked={darkMode}
-            onChange={() => {
-              setDarkMode(!darkMode);
-              document.documentElement.classList.toggle('dark'); // This toggles the dark class
-            }}
-          />
-          <div className="w-11 h-6 bg-gray-200 dark:bg-gray-600 rounded-full peer peer-checked:bg-blue-600 transition-all"></div>
-          <span className="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-all peer-checked:translate-x-5"></span>
-        </label>
-      </div>
-    </div>
-  );
-
+      
       default:
         return null;
     }
@@ -185,22 +160,24 @@ const Settings = () => {
     <div className="flex bg-gray-50 dark:bg-gray-900 min-h-screen">
       <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
       <main className="flex-1 p-6 md:p-10 transition-all duration-300">
-        <header className="flex flex-col md:flex-row items-start md:items-center justify-between mb-6 md:mb-10 border-b border-gray-200 dark:border-gray-700 pb-4">
-          <div>
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-800 dark:text-gray-200">Settings</h1>
-            <p className="text-gray-600 dark:text-gray-300 mt-2">Manage your account and platform preferences.</p>
-          </div>
-          <button
-            onClick={() => setIsSidebarOpen(true)}
-            className="md:hidden p-2 text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-gray-100 transition-colors mt-4 md:mt-0"
-            aria-label="Open navigation menu"
-          >
-            <Menu size={24} />
-          </button>
-        </header>
+        <header className="relative flex flex-col md:flex-row items-start md:items-center justify-between mb-6 md:mb-10 border-b border-gray-200 dark:border-gray-700 pb-4">
+  <div>
+    <h1 className="text-3xl md:text-4xl font-bold text-gray-800 dark:text-gray-200">Settings</h1>
+    <p className="text-gray-600 dark:text-gray-300 mt-2">Manage your account and platform preferences.</p>
+  </div>
+
+  <button
+    onClick={() => setIsSidebarOpen(true)}
+    className="absolute top-4 right-4 md:hidden p-2 text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-gray-100 transition-colors"
+    aria-label="Open navigation menu"
+  >
+    <Menu size={24} />
+  </button>
+</header>
+
 
         <div className="max-w-6xl mx-auto">
-          <div className="flex flex-nowrap overflow-x-auto gap-2 p-1 bg-white-300 dark:bg-gray-800 rounded-lg mb-8 shadow-inner">
+          <div className="flex flex-nowrap overflow-x-auto gap-2 p-1 bg-white-300 dark:bg-gray-800 rounded-lg mb-8">
             {settingsTabs.map(tab => (
               <button
                 key={tab.id}
