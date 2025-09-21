@@ -12,7 +12,7 @@ import NotFound from './components/pages/NotFound';
 import History from './components/sections/History'
 import Alerts from './components/sections/Alerts';
 import Settings from './components/sections/Settings';
-import Signin from './components/pages/Signin';
+
 function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
@@ -20,7 +20,7 @@ function App() {
         <Routes>
           {/* All routes are now public for testing */}
           <Route path="/" element={<LandingPage />} />
-          <Route path="/signin" element={<Signin />} />
+          <Route path="/signin" element={<Login />} />
           <Route path="/verify" element={<VerifyCertificate />} />
           {/* <Route path="/certificate-result" element={<CertificateResult />} /> */}
 

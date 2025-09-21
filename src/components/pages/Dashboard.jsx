@@ -5,8 +5,8 @@ import Sidebar from '../layout/Sidebar';
 import { Menu } from 'lucide-react';
 
 const topLevelCardsData = [
-  { title: 'Certificates Issued', value: '1,245', trend: '+12% this month' },
-  { title: 'Pending Verifications', value: '78', trend: 'High Priority' },
+  { title: 'Certificates Issued', value: '1,245', trend: '+12% this month'},
+  { title: 'Pending Verifications', value: '78', trend: 'High Priority'},
   { title: 'New Universities', value: '5', trend: '+1 this week' },
   { title: 'Total Users', value: '8,500+', trend: 'Active' },
 ];
@@ -49,7 +49,7 @@ const Dashboard = () => {
               className="bg-white p-6 rounded-xl shadow-sm hover:shadow-lg transition-shadow duration-300 border border-gray-100 cursor-pointer"
             >
               <h3 className="text-sm font-semibold text-gray-500 mb-1">{card.title}</h3>
-              <p className="text-3xl font-bold text-indigo-600 mb-1">{card.value}</p>
+              <p className="text-3xl font-bold text-blue-700 mb-1">{card.value}</p>
               <span className="text-xs font-medium text-gray-400">{card.trend}</span>
             </div>
           ))}
@@ -60,7 +60,7 @@ const Dashboard = () => {
             <h2 className="text-xl md:text-2xl font-semibold text-gray-800">Recently Issued Certificates</h2>
             <button
               onClick={handleViewAllCertificates}
-              className="text-indigo-600 hover:text-indigo-800 transition-colors duration-200 text-sm font-medium focus:outline-none"
+              className="text-blue-600 hover:text-blue-800 transition-colors duration-200 text-sm font-medium focus:outline-none"
               aria-label="View all issued certificates"
             >
               View All
