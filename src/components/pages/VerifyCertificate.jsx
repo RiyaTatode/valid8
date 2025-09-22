@@ -10,6 +10,9 @@ import {
   Search,
 } from "lucide-react";
 
+
+const BACKEND_URL = "https://valid8-mlmodel.onrender.com";
+
 const VerifyCertificate = () => {
   const [file, setFile] = useState(null);
   const [ocrData, setOcrData] = useState(null);
@@ -55,9 +58,9 @@ const VerifyCertificate = () => {
     formData.append("file", selectedFile);
 
     try {
-      const response = await axios.post("http://localhost:8000/extract/", formData, {
+        const response = await axios.post(`${BACKEND_URL}/extract/`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
-      });
+    });
 
       setOcrData(response.data.extracted_data || {});
       setCurrentStep(3); // Start Analyzing
